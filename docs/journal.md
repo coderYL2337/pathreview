@@ -15,3 +15,8 @@ When a new profile is created successfully, the API response does not include th
 **Setup confirmation:** [x] App runs locally at localhost:5173
 
 **Cohort ledger:** [ ] Issue added to cohort ledger
+
+**Issue claim reasoning:**
+- The issue scope is clear and localized to the profile response schema, which matches a Tier 1 bug fix.
+- I confirmed the affected file path (`api/schemas/profile.py`) and understand the expected before/after behavior.
+- The change is realistic for the available timeline and should be verifiable with a focused test update.
