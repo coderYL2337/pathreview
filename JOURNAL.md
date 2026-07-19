@@ -21,12 +21,12 @@ I've estimated the time this will take and I'm confident I can complete it befor
 
 ## Week 8 — Reproduction & solution planning
 
-**Reproduction commit link:** [link to commit documenting the reproduced issue]
+**Reproduction commit link:** [(https://github.com/coderYL2337/pathreview/commit/41b0da2abaebc1a3c12078da033bfdd660638756)]
 
 **Reproduction summary:**
 I reproduced issue #146 by running PIIScrubber with both (555) 123-4567 and 555-123-4567. scrub() redacted only the dashed number and detect() returned an empty list for the parenthesized number, confirming the bug.
 
-**PLAN.md link:** [link to PLAN.md in your fork]
+**PLAN.md link:** [PLAN.md](PLAN.md)
 
 **Walkthrough video (recommended):** [link to your Loom video, ≤2 min — shared for early feedback]
 
