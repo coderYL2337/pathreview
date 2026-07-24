@@ -50,7 +50,7 @@ None for this fix. Unrelated to this issue: `make test-unit` currently has ~49 p
 
 ### Check-in 2 (end of week)
 
-**PR link:** [link to your submitted pull request]
+**PR link:** [(https://github.com/ascherj/pathreview/pull/282)]
 
 **Branch:** [fix/146-PII-scrubber-redact-parenthesized-US-phone-numbers]
 
