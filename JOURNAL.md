@@ -52,14 +52,15 @@ None for this fix. Unrelated to this issue: `make test-unit` currently has ~49 p
 
 **PR link:** [link to your submitted pull request]
 
-**Branch:** [the branch name you worked on, e.g. `fix/123-short-description`]
+**Branch:** [fix/146-PII-scrubber-redact-parenthesized-US-phone-numbers]
 
 **What you built:**
-[1–3 sentences summarizing what your fix does and how it works]
+Fixed the `phone_us` regex in `safety/pii_scrubber.py` so `scrub()` and `detect()` correctly handle parenthesized US phone numbers like `(555) 123-4567`. The leading `\b` was replaced with a `(?<!\w)` lookbehind (so the match can start on the opening `(`), and `\s` was added alongside `-`/`.` as a valid separator, so both parenthesized and space-separated formats are matched without regressing the previously supported dashed/dotted formats.
 
 **Tests added or updated:**
-[Which test files did you touch? What do they cover?]
+No test files were changed — `tests/unit/test_pii_scrubber.py` already contained the relevant coverage (`test_us_phone_number_redaction`, `test_us_phone_formats`, `test_detect_phone_pii`, `test_phone_at_start_of_text`), which previously failed against the parenthesized format and now pass against the fix.
 
 **Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
+- `make check` and `make test-unit` do **not** pass repo-wide — both surface pre-existing failures unrelated to this fix (178 pre-existing `ruff` errors across other modules, ~49 pre-existing unit test failures in unrelated files). Confirmed `safety/pii_scrubber.py` itself has 0 lint errors, and `tests/unit/test_pii_scrubber.py` is 24/25 passing (the 1 failure is a pre-existing, unrelated `street_address` regex issue).
 
 **Draft PR feedback received from:** [name or Slack handle, or "none"]
