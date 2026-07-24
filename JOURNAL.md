@@ -32,3 +32,34 @@ I reproduced issue #146 by running PIIScrubber with both (555) 123-4567 and 555-
 
 **Blockers or open questions:**
 [Anything you're still uncertain about going into Week 9, or leave blank]
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+Implemented the phone_us regex fix in `safety/pii_scrubber.py`: replaced the leading `\b` with a `(?<!\w)` lookbehind so the match can include the opening `(`, and added `\s` alongside `-`/`.` as valid separators so parenthesized and space-separated formats (e.g. `(555) 123-4567`, `+1 555 123 4567`) are correctly redacted and detected. All four targeted tests pass (`test_us_phone_number_redaction`, `test_us_phone_formats`, `test_detect_phone_pii`, `test_phone_at_start_of_text`), and 24/25 tests in `tests/unit/test_pii_scrubber.py` pass (the one remaining failure, `test_mixed_pii_and_text`, is a pre-existing `street_address` regex issue unrelated to this fix). Also cleaned up two pre-existing `ruff` lint errors in the same file (line-too-long `street_address` regex, unused `pii_type` loop variable) that were blocking the commit's pre-commit hook.
+
+**Next steps:**
+Open the PR for review, and confirm `make check` / `make test-unit` results are documented in Check-in 2. No further changes planned to `phone_us` scope per PLAN.md.
+
+**Blockers:**
+None for this fix. Unrelated to this issue: `make test-unit` currently has ~49 pre-existing failures across other modules in the repo (not caused by this change).
+
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** [link to your submitted pull request]
+
+**Branch:** [the branch name you worked on, e.g. `fix/123-short-description`]
+
+**What you built:**
+[1–3 sentences summarizing what your fix does and how it works]
+
+**Tests added or updated:**
+[Which test files did you touch? What do they cover?]
+
+**Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
+
+**Draft PR feedback received from:** [name or Slack handle, or "none"]
