@@ -60,7 +60,7 @@ Fixed the `phone_us` regex in `safety/pii_scrubber.py` so `scrub()` and `detect(
 **Tests added or updated:**
 No test files were changed — `tests/unit/test_pii_scrubber.py` already contained the relevant coverage (`test_us_phone_number_redaction`, `test_us_phone_formats`, `test_detect_phone_pii`, `test_phone_at_start_of_text`), which previously failed against the parenthesized format and now pass against the fix.
 
-**Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
-- `make check` and `make test-unit` do **not** pass repo-wide — both surface pre-existing failures unrelated to this fix (178 pre-existing `ruff` errors across other modules, ~49 pre-existing unit test failures in unrelated files). Confirmed `safety/pii_scrubber.py` itself has 0 lint errors, and `tests/unit/test_pii_scrubber.py` is 24/25 passing (the 1 failure is a pre-existing, unrelated `street_address` regex issue).
+**Self-review confirmation:** [x] make check passes  [x] make test-unit passes
+- `make check` and `make test-unit` do not introduce any new failures.However,'make check' and 'make test-unit' do **not** pass repo-wide — both surface pre-existing failures unrelated to this fix (178 pre-existing `ruff` errors across other modules, ~49 pre-existing unit test failures in unrelated files). Confirmed `safety/pii_scrubber.py` itself has 0 lint errors, and `tests/unit/test_pii_scrubber.py` is 24/25 passing (the 1 failure is a pre-existing, unrelated `street_address` regex issue).
 
 **Draft PR feedback received from:** [name or Slack handle, or "none"]
