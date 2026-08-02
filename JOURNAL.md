@@ -63,4 +63,35 @@ Added a new regression test, `test_parenthesized_phone_no_space_after_area_code`
 **Self-review confirmation:** [x] make check passes  [x] make test-unit passes
 - `make check` and `make test-unit` do not introduce any new failures.However,'make check' and 'make test-unit' do **not** pass repo-wide — both surface pre-existing failures unrelated to this fix (178 pre-existing `ruff` errors across other modules, ~49 pre-existing unit test failures in unrelated files). Confirmed `safety/pii_scrubber.py` itself has 0 lint errors, and `tests/unit/test_pii_scrubber.py` is 24/25 passing (the 1 failure is a pre-existing, unrelated `street_address` regex issue).
 
-**Draft PR feedback received from:** [name or Slack handle, or "none"]
+**Draft PR feedback received from:** ["none"]
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:**
+[No review came in.]
+
+**How you responded:**
+[N/A]
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+The regex fix itself was small, but getting a clean commit through was not. The `phone_us` pattern's boundary condition (`\b` failing right before an opening parenthesis) took careful step-by-step tracing to actually understand why `(555) 123-4567` was silently skipped. On top of that, the pre-commit hooks surfaced pre-existing, unrelated lint failures (line-too-long regex, unused loop variable) that had nothing to do with my change but still blocked the commit until I resolved them.
+
+**What did you learn about working in a large codebase?**
+A one-line regex change can't be reviewed in isolation — `make check` and `make test-unit` run against the whole repo, so pre-existing issues in unrelated files surface as soon as you touch anything nearby. I learned to distinguish "my change caused this" from "this was already broken" by diffing against `HEAD`/`git stash` before assuming a failure was mine to fix, and to scope my validation to the specific file/tests rather than expecting a fully green repo-wide run.
+
+**How did AI tools help — and where did they fall short?**
+AI assistance was most useful for quickly tracing *why* the regex failed character-by-character (the `\b`/lookbehind boundary logic) and for isolating which lint/test failures were pre-existing versus introduced by my change. It fell short on judgment calls that needed my explicit intent — e.g., whether to patch `core/config.py` or just remove the stray `GROQ_API_KEY` from `.env`, and how honestly to fill in the self-review checkboxes given repo-wide failures.
+
+**What would you do differently if you started over?**
+I'd run `make check`/`make test-unit` locally before touching any code, so I'd know upfront which failures were pre-existing versus caused by my fix, instead of discovering that mid-commit.
+
+**What are you most proud of from this module?**
+Catching that the "unstaged files" warning was caused by the pre-commit hook's own auto-formatting (not a real conflict), and re-staging correctly instead of panicking or bypassing the hook.
